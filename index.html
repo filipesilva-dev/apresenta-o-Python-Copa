@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>⚽ Python na Copa – 9 Slides</title>
+  <title>⚽ Python na Copa – 8 Slides</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -43,7 +43,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      padding: 5vh 8vw;
+      padding: 4vh 6vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -64,7 +64,7 @@
       z-index: 10;
     }
 
-    /* FUNDOS */
+    /* FUNDOS ESPECIAIS */
     .slide.bg-green {
       background: linear-gradient(135deg, #0a6b3a, #0d8c4a);
       color: white;
@@ -98,7 +98,7 @@
     h1 {
       font-family: 'Fredoka One', cursive;
       font-size: clamp(3.2rem, 9vw, 6rem);
-      margin-bottom: 1.5vh;
+      margin-bottom: 1.2vh;
       text-align: center;
     }
 
@@ -112,18 +112,22 @@
     }
     h2 .emoji {
       font-size: clamp(3rem, 5.5vw, 4.5rem);
-      flex-shrink: 0;
     }
 
-    .slide.bg-green h2,
-    .slide.bg-blue h2 {
-      color: #ffd700;
+    /* Título centralizado específico para upper/lower */
+    .titulo-centralizado {
+      text-align: center;
+      justify-content: center;
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+    }
+    .titulo-centralizado .emoji {
+      font-size: clamp(2.8rem, 5vw, 4rem);
     }
 
     p, li {
       font-size: clamp(1.2rem, 3vw, 2.2rem);
       line-height: 1.6;
-      margin-bottom: 1.2vh;
+      margin-bottom: 1vh;
       font-weight: 500;
     }
 
@@ -132,7 +136,7 @@
       margin: 1vh 0;
     }
     li {
-      margin-bottom: 1vh;
+      margin-bottom: 0.8vh;
     }
 
     code {
@@ -144,23 +148,19 @@
       font-weight: 700;
       color: #2e7d32;
     }
-    .slide.bg-dark code {
-      color: #ffd700;
-      background: rgba(255, 215, 0, 0.15);
-    }
 
     pre {
       background: #1e1e2e;
       color: #a6e22e;
-      padding: 1.8vh 2.5vw;
+      padding: 1.5vh 2vw;
       border-radius: 16px;
       font-size: clamp(1rem, 2.2vw, 1.8rem);
       font-family: 'Courier New', monospace;
       overflow-x: auto;
-      margin: 1vh 0;
+      margin: 0.8vh 0;
       border-left: 6px solid #ffd700;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      line-height: 1.9;
+      line-height: 1.8;
     }
     pre .comment {
       color: #75715e;
@@ -186,22 +186,34 @@
 
     .alert-box {
       background: #fff3cd;
-      padding: 1.2vh 2vw;
+      padding: 1vh 1.5vw;
       border-radius: 16px;
       border-left: 8px solid #ffc107;
-      margin: 0.8vh 0;
+      margin: 0.6vh 0;
       font-size: clamp(1rem, 2.4vw, 1.8rem);
     }
     .alert-box code {
       background: rgba(0,0,0,0.05);
     }
 
+    .destaque-box {
+      background: #e3f2fd;
+      padding: 1vh 1.5vw;
+      border-radius: 16px;
+      border-left: 8px solid #1976d2;
+      margin: 0.6vh 0;
+      font-size: clamp(1rem, 2.4vw, 1.8rem);
+    }
+    .destaque-box code {
+      background: rgba(0,0,0,0.05);
+    }
+
     .result-box {
       background: #e8f5e9;
-      padding: 1.2vh 2vw;
+      padding: 1vh 1.5vw;
       border-radius: 16px;
       border-left: 8px solid #0a6b3a;
-      margin: 0.8vh 0;
+      margin: 0.6vh 0;
       font-size: clamp(1rem, 2.4vw, 1.8rem);
     }
     .result-box code {
@@ -211,29 +223,30 @@
 
     .challenge-box {
       background: #fce4ec;
-      padding: 1.2vh 2vw;
+      padding: 1vh 1.5vw;
       border-radius: 16px;
       border-left: 8px solid #d63384;
-      margin: 0.8vh 0;
+      margin: 0.6vh 0;
       font-size: clamp(1rem, 2.4vw, 1.8rem);
     }
     .challenge-box code {
       background: rgba(0,0,0,0.05);
     }
 
-    /* Centralização para alguns slides */
-    .center {
-      text-align: center;
-    }
-    .center ul {
-      list-style: none;
-      padding: 0;
-    }
-    .center li {
+    .flex-row {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.2vw;
+      gap: 2vw;
+      align-items: stretch;
+      flex-wrap: wrap;
+      margin: 1vh 0;
+    }
+    .flex-row > div {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(0,0,0,0.02);
+      padding: 1.2vh 1.5vw;
+      border-radius: 16px;
+      border: 1px solid #e0e0e0;
     }
 
     .nav {
@@ -282,7 +295,7 @@
       .slide { padding: 2.5vh 4vw; }
       h2 { font-size: clamp(2rem, 6vw, 3.2rem); }
       p, li { font-size: clamp(1rem, 3.2vw, 1.8rem); }
-      pre { font-size: clamp(0.8rem, 2.4vw, 1.4rem); padding: 1.2vh 1.5vw; }
+      pre { font-size: clamp(0.8rem, 2.4vw, 1.4rem); }
       code { font-size: clamp(0.9rem, 2.8vw, 1.6rem); }
     }
 
@@ -298,114 +311,109 @@
 <div class="container">
   <div class="slides-wrapper">
 
-    <!-- ==================== SLIDE 1: CAPA ==================== -->
+    <!-- SLIDE 1 - CAPA -->
     <div class="slide active bg-green" id="slide0">
       <h1>⚽ PYTHON NA COPA DO MUNDO</h1>
       <p style="font-size:clamp(1.6rem, 4vw, 3.2rem); font-weight:700; text-align:center;">Operações básicas com <span class="highlight">Strings</span></p>
-      <p style="font-size:clamp(1.2rem, 3vw, 2.4rem); margin-top:2vh; color:#e0f0e0; text-align:center;">APITO INICIAL 🎉</p>
+      <p style="font-size:clamp(1.2rem, 3vw, 2.4rem); margin-top:1.5vh; color:#e0f0e0; text-align:center;">APITO INICIAL 🎉</p>
       <p style="font-size:clamp(1rem, 2.6vw, 2rem); color:#c0dec0; text-align:center;">COPA PYTHON · STRINGS PARA INICIANTES</p>
-      <div style="margin-top:3vh; display:flex; justify-content:center; gap:1.5vw; flex-wrap:wrap;">
+      <div style="margin-top:2vh; display:flex; gap:1.5vw; flex-wrap:wrap; justify-content:center;">
         <span class="badge">⚽ + Python</span>
         <span class="badge">🎯 4 conceitos</span>
         <span class="badge">🏆 Vamos nessa!</span>
       </div>
     </div>
 
-    <!-- ==================== SLIDE 2: STRING = TEXTO ==================== -->
+    <!-- SLIDE 2 - STRING = TEXTO -->
     <div class="slide" id="slide1">
       <h2><span class="emoji">🧵</span> String = Texto</h2>
-      <p>Uma string é um texto entre aspas  nome de jogador, grito de gol, o que for!</p>
+      <p>Uma string é um texto entre aspas. Pode ser nome de jogador, grito de gol, placar, qualquer texto.</p>
       <pre><span style="color:#a6e22e;">jogador</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"Vini Jr."</span>
 <span style="color:#a6e22e;">grito</span>    <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"GOL"</span></pre>
       <div class="alert-box">
-        ⚠️ <strong>Atenção:</strong> <code>7</code> (número) é diferente de <code>"7"</code> (texto)!<br>
-        A diferença são as <strong>aspas</strong>: sem aspas é número, com aspas é string.
+        ⚠️ <strong>Atenção:</strong> <code>7</code> (número) é diferente de <code>"7"</code> (texto). A diferença são as aspas: sem aspas é número, com aspas é string.
       </div>
-      <p style="font-weight:900; font-size:clamp(1.2rem, 3vw, 2.2rem); margin-top:0.5vh;">✅ Tudo que é texto no Python é uma string!</p>
+      <p style="font-weight:900; font-size:clamp(1.2rem, 3vw, 2.2rem); margin-top:0.4vh;">✅ Tudo que é texto no Python é uma string!</p>
     </div>
 
-    <!-- ==================== SLIDE 3: CONCATENAÇÃO ==================== -->
+    <!-- SLIDE 3 - CONCATENAÇÃO COM + -->
     <div class="slide" id="slide2">
-      <h2><span class="emoji">🔗</span> Concatenação com <code style="font-size:clamp(1.6rem, 4vw, 3rem); color:#2e7d32;">+</code></h2>
-      <p>O <code>+</code> cola dois textos, formando um só  sem espaço extra, a menos que você peça.</p>
+      <h2><span class="emoji">🔗</span> Concatenação com <code style="font-size:clamp(2rem, 5vw, 3.6rem); color:#2e7d32;">+</code></h2>
+      <p>O operador <code>+</code> junta dois ou mais textos em um só. É como colar palavras.</p>
       <pre><span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"GO"</span> <span style="color:#f92672;">+</span> <span style="color:#e6db74;">"L"</span><span style="color:#f8f8f2;">)</span>  <span style="color:#75715e;"># GOL</span>
 <span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Brasil"</span> <span style="color:#f92672;">+</span> <span style="color:#e6db74;">" 2 x 1 "</span> <span style="color:#f92672;">+</span> <span style="color:#e6db74;">"Argentina"</span><span style="color:#f8f8f2;">)</span>  <span style="color:#75715e;"># Brasil 2 x 1 Argentina</span></pre>
-      <p>É igual juntar as letras do nome do seu time! ⚽</p>
-      <p style="font-size:clamp(0.9rem, 2.2vw, 1.6rem);">💡 O <code>+</code> só funciona com textos. Números precisam ser convertidos.</p>
+      <p>💡 <strong>Dica:</strong> O <code>+</code> só funciona com textos. Números precisam ser convertidos antes (assunto para outra aula).</p>
+      <p style="font-size:clamp(1rem, 2.4vw, 1.8rem);">É igual juntar as letras do nome do seu time!</p>
     </div>
 
-    <!-- ==================== SLIDE 4: LEN() ==================== -->
+    <!-- SLIDE 4 - LEN() + DESTAQUE SOBRE ESPAÇO -->
     <div class="slide" id="slide3">
-      <h2><span class="emoji">🔢</span> Contando com <code style="font-size:clamp(1.6rem, 4vw, 3rem); color:#2e7d32;">len()</code></h2>
-      <p><code>len()</code> conta tudo dentro da string: <strong>letras, números e espaços</strong>.</p>
+      <h2><span class="emoji">🔢</span> Contagem com <code style="font-size:clamp(2rem, 5vw, 3.6rem); color:#2e7d32;">len()</code></h2>
+      <p>A função <code>len()</code> retorna o número de caracteres de uma string. Isso inclui letras, números, espaços e pontuação.</p>
       <pre><span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Neymar"</span><span style="color:#f8f8f2;">))</span>   <span style="color:#75715e;"># 6</span>
-<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Cristiano Ronaldo"</span><span style="color:#f8f8f2;">))</span>  <span style="color:#75715e;"># 17 (espaço conta!)</span></pre>
-      <p><strong>Vamos contar as letras dos craques!</strong> 🇧🇷🇦🇷</p>
-    </div>
+<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Cristiano Ronaldo"</span><span style="color:#f8f8f2;">))</span>  <span style="color:#75715e;"># 17 (espaço conta!)</span>
+<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Gol!"</span><span style="color:#f8f8f2;">))</span>       <span style="color:#75715e;"># 4 (inclui exclamação)</span></pre>
 
-    <!-- ==================== SLIDE 5: ESPAÇO É CARACTERE ==================== -->
-    <div class="slide" id="slide4">
-      <h2><span class="emoji">⚠️</span> O espaço é um caractere!</h2>
-      <p><code>len()</code> conta espaços também  eles contam como um caractere igual a qualquer letra.</p>
-      <pre><span style="color:#a6e22e;">nome</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"Ana Maria"</span>
-<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">nome</span><span style="color:#f8f8f2;">))</span>  <span style="color:#75715e;"># 9 → o espaço conta como 1</span></pre>
-      <div class="alert-box" style="background:#e3f2fd; border-left-color:#1976d2;">
-        💡 <strong>Importante:</strong> Isso afeta validação de formulários, senhas e comparações de texto.
+      <div class="destaque-box">
+        <p style="font-weight:700; margin-bottom:0.2vh;">⚠️ O espaço é um caractere!</p>
+        <p>O espaço em branco também é contado por <code>len()</code>. Exemplo: <code>"Ana Maria"</code> tem <strong>9</strong> caracteres, pois o espaço entre os nomes conta como 1.</p>
+        <pre style="margin-top:0.4vh; font-size:clamp(0.8rem, 1.8vw, 1.4rem);"><span style="color:#a6e22e;">nome</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"Ana Maria"</span>
+<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">nome</span><span style="color:#f8f8f2;">))</span>  <span style="color:#75715e;"># 9</span></pre>
+        <p style="font-size:clamp(0.9rem, 2vw, 1.4rem); margin-top:0.2vh;">💡 <strong>Dica importante:</strong> <code>len()</code> conta todos os caracteres, inclusive espaços e pontuação. Útil para validar tamanho de senhas, nomes, etc.</p>
       </div>
     </div>
 
-    <!-- ==================== SLIDE 6: .UPPER() ==================== -->
-    <div class="slide" id="slide5">
-      <h2><span class="emoji">🔊</span> Grito de gol – <code style="font-size:clamp(1.6rem, 4vw, 3rem); color:#2e7d32;">.upper()</code></h2>
-      <p><code>.upper()</code> transforma todos os caracteres em <strong>MAIÚSCULAS</strong>  ideal para gritar!</p>
-      <pre><span style="color:#a6e22e;">jogador</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"ronaldinho"</span>
+    <!-- SLIDE 5 - .UPPER() E .LOWER() com TÍTULO CENTRALIZADO -->
+    <div class="slide" id="slide4">
+      <h2 class="titulo-centralizado">
+        <span class="emoji">🔊</span> Grito <code style="font-size:clamp(1.8rem, 4.5vw, 3.2rem); color:#2e7d32;">.upper()</code> vs Sussurro <code style="font-size:clamp(1.8rem, 4.5vw, 3.2rem); color:#2e7d32;">.lower()</code>
+      </h2>
+      <div class="flex-row">
+        <div>
+          <p><strong>.upper()</strong> → tudo MAIÚSCULO</p>
+          <pre><span style="color:#a6e22e;">jogador</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"ronaldinho"</span>
 <span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">jogador</span><span style="color:#f8f8f2;">.</span><span style="color:#a6e22e;">upper</span><span style="color:#f8f8f2;">())</span>  <span style="color:#75715e;"># RONALDINHO</span>
-
-<span style="color:#a6e22e;">grito</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"gol"</span>
-<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">grito</span><span style="color:#f8f8f2;">.</span><span style="color:#a6e22e;">upper</span><span style="color:#f8f8f2;">()</span> <span style="color:#f92672;">+</span> <span style="color:#e6db74;">"!!!!"</span><span style="color:#f8f8f2;">)</span>  <span style="color:#75715e;"># GOL!!!!</span></pre>
-      <p><strong>Gritar gol tem que ser em maiúsculo!</strong> 🗣️⚽</p>
-      <p style="font-size:clamp(0.9rem, 2.2vw, 1.6rem);">💡 <code>.upper()</code> não altera a variável original  gera uma nova string.</p>
-    </div>
-
-    <!-- ==================== SLIDE 7: .LOWER() ==================== -->
-    <div class="slide" id="slide6">
-      <h2><span class="emoji">🤫</span> Sussurro – <code style="font-size:clamp(1.6rem, 4vw, 3rem); color:#2e7d32;">.lower()</code></h2>
-      <p><code>.lower()</code> transforma todos os caracteres em <strong>minúsculas</strong>.</p>
-      <pre><span style="color:#a6e22e;">grito</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"GOL"</span>
+<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"gol"</span><span style="color:#f8f8f2;">.</span><span style="color:#a6e22e;">upper</span><span style="color:#f8f8f2;">()</span> <span style="color:#f92672;">+</span> <span style="color:#e6db74;">"!!!!"</span><span style="color:#f8f8f2;">)</span>  <span style="color:#75715e;"># GOL!!!!</span></pre>
+          <p style="font-size:clamp(0.9rem, 2.2vw, 1.6rem);">Gritar gol tem que ser em maiúsculo! 🗣️</p>
+        </div>
+        <div>
+          <p><strong>.lower()</strong> → tudo minúsculo</p>
+          <pre><span style="color:#a6e22e;">grito</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"GOL"</span>
 <span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">grito</span><span style="color:#f8f8f2;">.</span><span style="color:#a6e22e;">lower</span><span style="color:#f8f8f2;">())</span>  <span style="color:#75715e;"># gol</span>
-
 <span style="color:#a6e22e;">resposta</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"SIM"</span>
 <span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">resposta</span><span style="color:#f8f8f2;">.</span><span style="color:#a6e22e;">lower</span><span style="color:#f8f8f2;">())</span>  <span style="color:#75715e;"># sim (padroniza)</span></pre>
-      <p>Quando é gol contra, a gente fala baixinho… 😅</p>
-      <p style="font-size:clamp(0.9rem, 2.2vw, 1.6rem);">💡 <code>.lower()</code> também não modifica a original  retorna uma nova string.</p>
+          <p style="font-size:clamp(0.9rem, 2.2vw, 1.6rem);">Quando é gol contra, fala baixinho… 😅</p>
+        </div>
+      </div>
+      <p style="font-size:clamp(0.9rem, 2.2vw, 1.6rem); margin-top:0.5vh; text-align:center;">💡 <strong>Ambos</strong> não alteram a variável original, geram uma nova string.</p>
     </div>
 
-    <!-- ==================== SLIDE 8: REVISÃO ==================== -->
-    <div class="slide bg-dark" id="slide7">
+    <!-- SLIDE 6 - REVISÃO RÁPIDA -->
+    <div class="slide bg-dark" id="slide5">
       <h2 style="color:#ffd700;">🤔 Você lembra?</h2>
       <ul style="list-style:none; padding:0; font-size:clamp(1.4rem, 3.4vw, 2.8rem);">
         <li style="display:flex; align-items:center; gap:1.5vw; margin-bottom:1.2vh;">
-          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">➕</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">+</code> → junta textos
+          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">➕</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">+</code> → junta textos (concatenação)
         </li>
         <li style="display:flex; align-items:center; gap:1.5vw; margin-bottom:1.2vh;">
-          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🔢</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">len()</code> → conta caracteres (espaços também!)
+          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🔢</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">len()</code> → conta todos os caracteres (espaços e pontuação inclusos)
         </li>
         <li style="display:flex; align-items:center; gap:1.5vw; margin-bottom:1.2vh;">
-          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🔊</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">.upper()</code> → MAIÚSCULAS
+          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🔊</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">.upper()</code> → transforma em MAIÚSCULAS
         </li>
         <li style="display:flex; align-items:center; gap:1.5vw; margin-bottom:1.2vh;">
-          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🤫</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">.lower()</code> → minúsculas
+          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🤫</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">.lower()</code> → transforma em minúsculas
         </li>
       </ul>
-      <p style="color:#aac; font-size:clamp(1rem, 2.4vw, 1.8rem); margin-top:0.5vh;">Prontos para o desafio? 💪</p>
+      <p style="color:#aac; font-size:clamp(1rem, 2.4vw, 1.8rem); margin-top:0.5vh; text-align:center;">Prontos para o desafio? 💪</p>
     </div>
 
-    <!-- ==================== SLIDE 9: DESAFIO DO NARRADOR ==================== -->
-    <div class="slide" id="slide8" style="padding:2.5vh 5vw; justify-content:center;">
-      <h2 style="font-size:clamp(2.2rem, 5vw, 3.8rem); margin-bottom:1.2vh;">
+    <!-- SLIDE 7 - DESAFIO DO NARRADOR -->
+    <div class="slide" id="slide6" style="padding:2.5vh 5vw; justify-content:center;">
+      <h2 style="font-size:clamp(2.2rem, 5vw, 3.8rem); margin-bottom:1.2vh; justify-content:center; text-align:center;">
         <span class="emoji">🎙️</span> Desafio do Narrador!
       </h2>
-      <p style="font-size:clamp(1.2rem, 3vw, 2.2rem); font-weight:700; margin-bottom:1vh;">
+      <p style="font-size:clamp(1.2rem, 3vw, 2.2rem); font-weight:700; margin-bottom:1vh; text-align:center;">
         Você é o narrador da Copa! ⚽
       </p>
       <div class="challenge-box" style="font-size:clamp(1rem, 2.6vw, 1.8rem);">
@@ -413,7 +421,7 @@
         <ol style="padding-left:2vw; margin-bottom:0.6vh;">
           <li>Escolha um <strong>nome de jogador</strong> e guarde em uma variável.</li>
           <li>Crie uma <strong>mensagem de gol</strong> usando <strong>concatenação</strong> (<code>+</code>) e <code>.upper()</code> no nome.<br>
-          Resultado esperado: <code>"GOLLLLLLL DO NOME DO JOGADOR!!!!!"</code> (tudo em maiúsculas).</li>
+          O resultado deve ser como: <code>"GOLLLLLLL DO NOME DO JOGADOR!!!!!"</code> (tudo em maiúsculas).</li>
           <li>Mostre uma <strong>curiosidade</strong>: quantas letras tem o nome, usando <code>len()</code>.</li>
         </ol>
       </div>
@@ -423,20 +431,38 @@
 GOLLLLLLL DO VINI JR.!!!!!
 Curiosidade: o nome tem 8 letras</pre>
       </div>
-      <p style="font-size:clamp(1rem, 2.6vw, 1.8rem); font-weight:700; margin-top:0.8vh; color:#d63384;">
+      <p style="font-size:clamp(1rem, 2.6vw, 1.8rem); font-weight:700; margin-top:0.8vh; color:#d63384; text-align:center;">
         ⚡ Agora escreva seu código, rode e veja o resultado!
       </p>
-      <p style="font-size:clamp(0.9rem, 2.2vw, 1.5rem); color:#555;">
-        Dica: use <code>+</code> para juntar texto fixo com o nome em maiúsculas, e <code>len()</code> para contar.
-      </p>
+    </div>
+
+    <!-- SLIDE 8 - RESUMO -->
+    <div class="slide bg-blue" id="slide7">
+      <h2 style="color:#ffd700;">🏆 RESUMO DA AULA</h2>
+      <p style="font-size:clamp(1.4rem, 3.6vw, 2.8rem); font-weight:700; text-align:center;">Parabéns! Vocês são <span style="color:#ffd700;">craques</span> em strings!</p>
+      <ul style="list-style:none; padding:0; font-size:clamp(1.2rem, 3vw, 2.4rem); margin-top:1.5vh;">
+        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:1vh;">
+          <span style="font-size:clamp(1.8rem, 4vw, 3.2rem);">🧵</span> <strong>String</strong> = texto entre aspas (simples ou duplas)
+        </li>
+        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:1vh;">
+          <span style="font-size:clamp(1.8rem, 4vw, 3.2rem);">➕</span> <strong>+</strong> = junta textos (concatenação)
+        </li>
+        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:1vh;">
+          <span style="font-size:clamp(1.8rem, 4vw, 3.2rem);">🔢</span> <strong>len()</strong> = conta caracteres (espaços e pontuação contam!)
+        </li>
+        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:1vh;">
+          <span style="font-size:clamp(1.8rem, 4vw, 3.2rem);">🔊</span> <strong>.upper() / .lower()</strong> = maiúsculas / minúsculas
+        </li>
+      </ul>
+      <p style="font-size:clamp(1.2rem, 3vw, 2.2rem); font-weight:700; margin-top:1.2vh; text-align:center;">Bons estudos e boa sorte! ⚽🚀</p>
     </div>
 
   </div><!-- fim slides-wrapper -->
 
-  <!-- ===== NAVEGAÇÃO ===== -->
+  <!-- NAVEGAÇÃO -->
   <div class="nav">
     <button id="prevBtn">◀ Anterior</button>
-    <span class="page-indicator"><span id="currentPage">1</span> / <span id="totalPages">9</span></span>
+    <span class="page-indicator"><span id="currentPage">1</span> / <span id="totalPages">8</span></span>
     <button id="nextBtn">Próximo ▶</button>
   </div>
 </div><!-- fim container -->
