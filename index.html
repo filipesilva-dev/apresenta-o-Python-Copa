@@ -4,304 +4,231 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>⚽ Python na Copa – 8 Slides</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Nunito', sans-serif; background: #1a5e1a; }
+    .container { width: 100vw; height: 100vh; display: flex; flex-direction: column; background: #fff; overflow: hidden; position: relative; }
 
-    html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      font-family: 'Nunito', sans-serif;
-      background: #0b1a2e;
-    }
-
-    .container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: #fff;
-      overflow: hidden;
-      position: relative;
-    }
-
+    /* ===== FUNDO DE GRAMADO ===== */
     .slides-wrapper {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-      background: inherit;
+      flex: 1; position: relative; overflow: hidden;
+      background-color: #2d8a4e;
+      background-image: repeating-linear-gradient(0deg, #1f7a3a 0px, #1f7a3a 40px, #2d8a4e 40px, #2d8a4e 80px);
+      background-size: 100% 80px;
     }
 
-    .slide {
+    /* ===== BOLA GIRATÓRIA ===== */
+    .spinning-ball {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      padding: 4vh 6vw;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: white;
-      opacity: 0;
-      transform: scale(0.96) translateY(15px);
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      bottom: 20px;
+      left: 20px;
+      font-size: clamp(3rem, 6vw, 5rem);
+      z-index: 50;
+      animation: spin 4s linear infinite;
+      filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4));
       pointer-events: none;
-      overflow-y: auto;
-      scrollbar-width: none;
+      opacity: 0.25;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    /* ===== SLIDES ===== */
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      padding: 3vh 5vw;
+      display: flex; flex-direction: column; justify-content: center;
+      opacity: 0; transform: scale(0.96) translateY(15px);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none; overflow-y: auto; scrollbar-width: none;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(2px);
     }
     .slide::-webkit-scrollbar { display: none; }
+    .slide.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; z-index: 10; }
 
-    .slide.active {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-      pointer-events: auto;
-      z-index: 10;
-    }
+    /* FUNDOS ESPECIAIS (cobrem o gramado) */
+    .slide-capa { background: linear-gradient(135deg, #0a6b3a, #0d8c4a); color: white; }
+    .slide-capa h1 { color: #ffd700; }
+    .slide-revisao { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; }
+    .slide-revisao h2 { color: #ffd700; }
+    .slide-resumo { background: linear-gradient(135deg, #003a7a, #0055b3); color: white; }
+    .slide-resumo h2 { color: #ffd700; }
 
-    /* FUNDOS ESPECIAIS */
-    .slide.bg-green {
-      background: linear-gradient(135deg, #0a6b3a, #0d8c4a);
-      color: white;
-    }
-    .slide.bg-green h1,
-    .slide.bg-green h2 {
-      color: #ffd700;
-    }
-    .slide.bg-green .highlight {
-      color: #ffd700;
-    }
+    .slide-string { background: rgba(241, 248, 233, 0.92); backdrop-filter: blur(4px); }
+    .slide-string h2 { color: #1a4a1a; }
+    .slide-concat { background: rgba(255, 253, 231, 0.92); backdrop-filter: blur(4px); }
+    .slide-concat h2 { color: #0a6b3a; }
+    .slide-len { background: rgba(227, 242, 253, 0.92); backdrop-filter: blur(4px); }
+    .slide-len h2 { color: #003a7a; }
+    .slide-upperlower { background: rgba(232, 245, 233, 0.92); backdrop-filter: blur(4px); }
+    .slide-upperlower h2 { color: #0a6b3a; }
+    .slide-desafio { background: rgba(255, 243, 224, 0.92); backdrop-filter: blur(4px); }
+    .slide-desafio h2 { color: #b71c1c; }
 
-    .slide.bg-blue {
-      background: linear-gradient(135deg, #003a7a, #0055b3);
-      color: white;
+    /* ===== FONTE ESPORTIVA ===== */
+    h1, h2 {
+      font-family: 'Anton', 'Fredoka One', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
-    .slide.bg-blue h1,
-    .slide.bg-blue h2 {
-      color: #ffd700;
-    }
-
-    .slide.bg-dark {
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      color: white;
-    }
-    .slide.bg-dark h1,
-    .slide.bg-dark h2 {
-      color: #ffd700;
-    }
-
     h1 {
-      font-family: 'Fredoka One', cursive;
       font-size: clamp(3.2rem, 9vw, 6rem);
-      margin-bottom: 1.2vh;
-      text-align: center;
+      margin-bottom: 0.8vh; text-align: center;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 2; position: relative;
     }
-
     h2 {
-      font-family: 'Fredoka One', cursive;
-      font-size: clamp(2.6rem, 6vw, 4.2rem);
-      margin-bottom: 2vh;
-      display: flex;
-      align-items: center;
-      gap: 1.2vw;
-    }
-    h2 .emoji {
-      font-size: clamp(3rem, 5.5vw, 4.5rem);
-    }
-
-    .titulo-centralizado {
-      text-align: center;
-      justify-content: center;
       font-size: clamp(2.4rem, 5.5vw, 4rem);
+      margin-bottom: 1.2vh;
+      display: flex; align-items: center; gap: 1vw;
+      z-index: 2; position: relative;
     }
-    .titulo-centralizado .emoji {
-      font-size: clamp(2.8rem, 5vw, 4rem);
-    }
+    h2 .emoji { font-size: clamp(2.8rem, 5vw, 4.2rem); }
+    .titulo-centralizado { text-align: center; justify-content: center; font-size: clamp(2.2rem, 5vw, 3.6rem); }
+    .titulo-centralizado .emoji { font-size: clamp(2.6rem, 4.5vw, 3.8rem); }
 
-    p, li {
-      font-size: clamp(1.2rem, 3vw, 2.2rem);
-      line-height: 1.6;
-      margin-bottom: 1vh;
-      font-weight: 500;
-    }
-
-    ul, ol {
-      padding-left: 2vw;
-      margin: 1vh 0;
-    }
-    li {
-      margin-bottom: 0.8vh;
-    }
-
-    code {
-      background: rgba(0, 0, 0, 0.07);
-      padding: 0.3vh 0.8vw;
-      border-radius: 8px;
-      font-family: 'Courier New', monospace;
-      font-size: clamp(1.1rem, 2.6vw, 2rem);
-      font-weight: 700;
-      color: #2e7d32;
-    }
-
-    pre {
-      background: #1e1e2e;
-      color: #a6e22e;
-      padding: 1.5vh 2vw;
-      border-radius: 16px;
-      font-size: clamp(1rem, 2.2vw, 1.8rem);
-      font-family: 'Courier New', monospace;
-      overflow-x: auto;
-      margin: 0.8vh 0;
-      border-left: 6px solid #ffd700;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      line-height: 1.8;
-    }
-    pre .comment {
-      color: #75715e;
-    }
-
-    .slide.bg-green pre,
-    .slide.bg-blue pre,
-    .slide.bg-dark pre {
-      background: #0b1a2e;
-      border-left-color: #ffd700;
-    }
-
-    .badge {
-      display: inline-block;
-      background: #ffd700;
-      color: #0a6b3a;
-      padding: 0.4vh 1.5vw;
-      border-radius: 50px;
-      font-weight: 900;
+    .subtitulo {
       font-size: clamp(0.9rem, 2vw, 1.6rem);
-      margin-top: 0.5vh;
+      font-weight: 700; opacity: 0.7; margin-top: -0.3vh; margin-bottom: 1vh;
+      z-index: 2; position: relative; font-style: italic;
+    }
+    p, li {
+      font-size: clamp(1.1rem, 2.6vw, 2rem);
+      line-height: 1.5; margin-bottom: 0.6vh; font-weight: 500;
+      z-index: 2; position: relative;
+    }
+    .slide-upperlower p, .slide-upperlower li, .slide-concat p, .slide-concat li,
+    .slide-string p, .slide-string li, .slide-len p, .slide-len li, .slide-desafio p, .slide-desafio li { color: #1a2e1a; }
+    .slide-capa p, .slide-revisao p, .slide-revisao li, .slide-resumo p, .slide-resumo li { color: #f0f4f0; }
+    ul, ol { padding-left: 1.8vw; margin: 0.6vh 0; }
+    li { margin-bottom: 0.4vh; }
+
+    /* ===== CÓDIGO ===== */
+    code {
+      background: rgba(0,0,0,0.07); padding: 0.2vh 0.6vw; border-radius: 8px;
+      font-family: 'Courier New', monospace; font-size: clamp(1rem, 2.2vw, 1.8rem);
+      font-weight: 700; color: #2e7d32; border: 1px solid rgba(255,215,0,0.2);
+    }
+    pre {
+      background: #1a1a2e; color: #a6e22e; padding: 1.2vh 1.5vw; border-radius: 14px;
+      font-size: clamp(0.9rem, 2vw, 1.6rem); font-family: 'Courier New', monospace;
+      overflow-x: auto; margin: 0.5vh 0; border-left: 5px solid #ffd700;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25); line-height: 1.7;
+      z-index: 2; position: relative;
+    }
+    pre .comment { color: #75715e; }
+
+    /* ===== BADGES ===== */
+    .badge {
+      display: inline-block; background: #ffd700; color: #0a6b3a;
+      padding: 0.3vh 1.2vw; border-radius: 50px; font-weight: 900;
+      font-size: clamp(0.8rem, 1.8vw, 1.5rem); margin-top: 0.4vh;
+      box-shadow: 0 2px 8px rgba(255,215,0,0.3); z-index: 2; position: relative;
     }
 
+    /* ===== BOXES ===== */
     .alert-box {
-      background: #fff3cd;
-      padding: 1vh 1.5vw;
-      border-radius: 16px;
-      border-left: 8px solid #ffc107;
-      margin: 0.6vh 0;
-      font-size: clamp(1rem, 2.4vw, 1.8rem);
+      background: rgba(255,243,205,0.85); backdrop-filter: blur(4px);
+      padding: 0.8vh 1.2vw; border-radius: 14px; border-left: 6px solid #ffc107;
+      margin: 0.4vh 0; font-size: clamp(0.95rem, 2.2vw, 1.7rem);
+      box-shadow: 0 2px 10px rgba(255,193,7,0.12); z-index: 2; position: relative;
     }
-    .alert-box code {
-      background: rgba(0,0,0,0.05);
-    }
-
     .destaque-box {
-      background: #e3f2fd;
-      padding: 1vh 1.5vw;
-      border-radius: 16px;
-      border-left: 8px solid #1976d2;
-      margin: 0.6vh 0;
-      font-size: clamp(1rem, 2.4vw, 1.8rem);
+      background: rgba(227,242,253,0.85); backdrop-filter: blur(4px);
+      padding: 0.8vh 1.2vw; border-radius: 14px; border-left: 6px solid #1976d2;
+      margin: 0.4vh 0; font-size: clamp(0.95rem, 2.2vw, 1.7rem);
+      box-shadow: 0 2px 10px rgba(25,118,210,0.10); z-index: 2; position: relative;
     }
-    .destaque-box code {
-      background: rgba(0,0,0,0.05);
-    }
-
     .result-box {
-      background: #e8f5e9;
-      padding: 1vh 1.5vw;
-      border-radius: 16px;
-      border-left: 8px solid #0a6b3a;
-      margin: 0.6vh 0;
-      font-size: clamp(1rem, 2.4vw, 1.8rem);
+      background: rgba(232,245,233,0.85); backdrop-filter: blur(4px);
+      padding: 0.8vh 1.2vw; border-radius: 14px; border-left: 6px solid #0a6b3a;
+      margin: 0.4vh 0; font-size: clamp(0.95rem, 2.2vw, 1.7rem);
+      box-shadow: 0 2px 10px rgba(10,107,58,0.10); z-index: 2; position: relative;
     }
-    .result-box code {
-      background: transparent;
-      color: #0a6b3a;
-    }
-
     .challenge-box {
-      background: #fce4ec;
-      padding: 1vh 1.5vw;
-      border-radius: 16px;
-      border-left: 8px solid #d63384;
-      margin: 0.6vh 0;
-      font-size: clamp(1rem, 2.4vw, 1.8rem);
-    }
-    .challenge-box code {
-      background: rgba(0,0,0,0.05);
+      background: rgba(252,228,236,0.85); backdrop-filter: blur(4px);
+      padding: 0.8vh 1.2vw; border-radius: 14px; border-left: 6px solid #d63384;
+      margin: 0.4vh 0; font-size: clamp(0.95rem, 2.2vw, 1.7rem);
+      box-shadow: 0 2px 10px rgba(214,51,132,0.10); z-index: 2; position: relative;
     }
 
-    .flex-row {
-      display: flex;
-      gap: 2vw;
-      align-items: stretch;
-      flex-wrap: wrap;
-      margin: 1vh 0;
-    }
-    .flex-row > div {
-      flex: 1;
-      min-width: 200px;
-      background: rgba(0,0,0,0.02);
-      padding: 1.2vh 1.5vw;
-      border-radius: 16px;
-      border: 1px solid #e0e0e0;
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2vh 3vw;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(10px);
-      border-top: 2px solid rgba(255, 215, 0, 0.3);
-      flex-shrink: 0;
-      z-index: 20;
-    }
-
-    .nav button {
-      background: #0a6b3a;
-      color: white;
-      border: none;
-      padding: 0.8vh 2vw;
-      border-radius: 60px;
-      font-size: clamp(1.2rem, 2.4vw, 2rem);
+    /* ===== VAR BOX (PADRONIZADO) ===== */
+    .var-box {
+      background: rgba(0, 0, 0, 0.85);
+      color: #ffd700;
+      padding: 0.6vh 1.2vw;
+      border-radius: 10px;
+      border-left: 6px solid #ff0000;
+      font-family: 'Nunito', sans-serif;
       font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0.6vh 0;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.25);
+      font-size: clamp(0.9rem, 2vw, 1.5rem);
+      z-index: 2; position: relative;
+      flex-wrap: wrap;
+    }
+    .var-box .var-icon { color: #ff0000; font-size: clamp(1.2rem, 2.5vw, 2rem); margin-right: 4px; }
+    .var-box .var-text { color: #ffd700; }
+    .var-box .var-final { color: #ffd700; font-weight: 900; margin-left: auto; }
+
+    /* ===== OLHO NO LANCE (PADRONIZADO) ===== */
+    .lance-box {
+      background: rgba(255, 215, 0, 0.15);
+      border: 2px dashed #ffd700;
+      padding: 0.4vh 1vw;
+      border-radius: 12px;
+      font-weight: 900;
+      color: #b71c1c;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: clamp(0.9rem, 2vw, 1.5rem);
+      margin: 0.4vh 0;
+      z-index: 2; position: relative;
+      flex-wrap: wrap;
+    }
+    .lance-box .lance-icon { font-size: clamp(1.2rem, 2.5vw, 2rem); margin-right: 4px; }
+    .lance-box .lance-text { color: #b71c1c; }
+
+    /* ===== LAYOUT FLEX ===== */
+    .flex-row { display: flex; gap: 1.5vw; align-items: stretch; flex-wrap: wrap; margin: 0.5vh 0; z-index: 2; position: relative; }
+    .flex-row > div { flex: 1; min-width: 180px; background: rgba(255,255,255,0.5); backdrop-filter: blur(4px); padding: 1vh 1.2vw; border-radius: 14px; border: 2px solid rgba(255,215,0,0.3); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+    /* ===== NAVEGAÇÃO ===== */
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1vh 3vw; background: rgba(26,46,26,0.92); backdrop-filter: blur(10px);
+      border-top: 3px solid #ffd700; flex-shrink: 0; z-index: 20;
+    }
+    .nav button {
+      background: linear-gradient(135deg, #0a6b3a, #0d8c4a); color: white;
+      border: 2px solid #ffd700; padding: 0.6vh 2vw; border-radius: 60px;
+      font-size: clamp(1.1rem, 2.2vw, 1.8rem); font-weight: 700; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 2px 10px rgba(255,215,0,0.2);
       font-family: 'Nunito', sans-serif;
     }
-
-    .nav button:hover {
-      transform: scale(1.05);
-      background: #0d8c4a;
-      box-shadow: 0 6px 20px rgba(10, 107, 58, 0.4);
-    }
-
+    .nav button:hover { transform: scale(1.05); background: linear-gradient(135deg, #0d8c4a, #0a6b3a); box-shadow: 0 6px 25px rgba(255,215,0,0.4); }
     .nav .page-indicator {
-      font-size: clamp(1.2rem, 2.4vw, 2rem);
-      font-weight: 900;
-      color: #0a6b3a;
-      background: #f0f4f8;
-      padding: 0.4vh 1.5vw;
-      border-radius: 60px;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+      font-size: clamp(1.1rem, 2.2vw, 1.8rem); font-weight: 900; color: #ffd700;
+      background: rgba(255,255,255,0.08); padding: 0.3vh 1.5vw; border-radius: 60px;
+      border: 1px solid rgba(255,215,0,0.2);
     }
 
     @media (orientation: portrait) {
-      .slide { padding: 2.5vh 4vw; }
-      h2 { font-size: clamp(2rem, 6vw, 3.2rem); }
-      p, li { font-size: clamp(1rem, 3.2vw, 1.8rem); }
-      pre { font-size: clamp(0.8rem, 2.4vw, 1.4rem); }
-      code { font-size: clamp(0.9rem, 2.8vw, 1.6rem); }
+      .slide { padding: 2vh 3vw; }
+      h2 { font-size: clamp(1.8rem, 5vw, 2.8rem); }
+      p, li { font-size: clamp(0.9rem, 2.8vw, 1.6rem); }
+      pre { font-size: clamp(0.7rem, 2vw, 1.2rem); }
+      code { font-size: clamp(0.8rem, 2.4vw, 1.4rem); }
     }
-
     @media (max-width: 600px) {
-      .slide { padding: 1.5vh 3vw; }
-      .nav button { padding: 0.5vh 3vw; font-size: clamp(0.8rem, 3.2vw, 1.2rem); }
-      .nav .page-indicator { font-size: clamp(0.8rem, 3.2vw, 1.2rem); padding: 0.2vh 3vw; }
+      .slide { padding: 1.5vh 2.5vw; }
+      .nav button { padding: 0.4vh 2.5vw; font-size: clamp(0.7rem, 3vw, 1rem); }
+      .nav .page-indicator { font-size: clamp(0.7rem, 3vw, 1rem); padding: 0.2vh 2.5vw; }
     }
   </style>
 </head>
@@ -310,148 +237,190 @@
 <div class="container">
   <div class="slides-wrapper">
 
+    <!-- ===== BOLA GIRATÓRIA ===== -->
+    <div class="spinning-ball">⚽</div>
+
     <!-- SLIDE 1 - CAPA -->
-    <div class="slide active bg-green" id="slide0">
-      <h1>⚽ PYTHON NA COPA DO MUNDO</h1>
-      <p style="font-size:clamp(1.6rem, 4vw, 3.2rem); font-weight:700; text-align:center;">Operações básicas com <span class="highlight">Strings</span></p>
-      <p style="font-size:clamp(1.2rem, 3vw, 2.4rem); margin-top:1.5vh; color:#e0f0e0; text-align:center;">APITO INICIAL 🎉</p>
-      <p style="font-size:clamp(1rem, 2.6vw, 2rem); color:#c0dec0; text-align:center;">COPA PYTHON · STRINGS PARA INICIANTES</p>
-      <div style="margin-top:2vh; display:flex; gap:1.5vw; flex-wrap:wrap; justify-content:center;">
+    <div class="slide slide-capa active" id="slide0">
+      <span class="deco" style="position:absolute; top:5%; left:5%; font-size:clamp(2rem,5vw,4rem); opacity:0.12; z-index:0;">🏆</span>
+      <span class="deco" style="position:absolute; bottom:10%; right:5%; font-size:clamp(2rem,5vw,4rem); opacity:0.12; z-index:0;">🇧🇷</span>
+      <span class="deco" style="position:absolute; top:15%; right:15%; font-size:clamp(4rem,10vw,8rem); opacity:0.06; z-index:0;">⚽</span>
+      <h1>⚽ PYTHON NA COPA</h1>
+      <p style="font-size:clamp(1.6rem, 4vw, 3.2rem); font-weight:700; text-align:center; z-index:2; position:relative;">
+        Operações básicas com <span style="color:#ffd700;">Strings</span>
+      </p>
+      <p style="font-size:clamp(1.2rem, 3vw, 2.4rem); margin-top:1vh; color:#e0f0e0; text-align:center; z-index:2; position:relative;">
+        APITO INICIAL 🎉
+      </p>
+      <p style="font-size:clamp(1rem, 2.6vw, 2rem); color:#c0dec0; text-align:center; z-index:2; position:relative;">
+        COPA PYTHON · STRINGS PARA INICIANTES
+      </p>
+      <div style="margin-top:2vh; display:flex; gap:1.5vw; flex-wrap:wrap; justify-content:center; z-index:2; position:relative;">
         <span class="badge">⚽ + Python</span>
         <span class="badge">🎯 4 conceitos</span>
         <span class="badge">🏆 Vamos nessa!</span>
       </div>
     </div>
 
-    <!-- SLIDE 2 - STRING = TEXTO -->
-    <div class="slide" id="slide1">
+    <!-- SLIDE 2 - STRING -->
+    <div class="slide slide-string" id="slide1">
+      <span class="deco" style="position:absolute; top:8%; right:8%; font-size:clamp(2rem,5vw,4rem); opacity:0.12; z-index:0;">🧵</span>
       <h2><span class="emoji">🧵</span> String = Texto</h2>
+      <p class="subtitulo">📌 O que é? É o que você escreve entre aspas!</p>
       <p>Uma string é um texto entre aspas. Pode ser nome de jogador, grito de gol, placar, qualquer texto.</p>
       <pre><span style="color:#a6e22e;">jogador</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"Vini Jr."</span>
 <span style="color:#a6e22e;">grito</span>    <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"GOL"</span></pre>
-      <div class="alert-box">
-        ⚠️ <strong>Atenção:</strong> <code>7</code> (número) é diferente de <code>"7"</code> (texto). A diferença são as aspas: sem aspas é número, com aspas é string.
-      </div>
-      <p style="font-weight:900; font-size:clamp(1.2rem, 3vw, 2.2rem); margin-top:0.4vh;">✅ Tudo que é texto no Python é uma string!</p>
+      <div class="lance-box"><span class="lance-icon">👀</span><span class="lance-text"> <strong>Olho no lance:</strong> <code>7</code> (número) é diferente de <code>"7"</code> (texto). A diferença são as <strong>aspas</strong>!
+ Números não têm aspas, textos têm!</span></div>
+      <div class="var-box"><span class="var-icon">📺</span><span class="var-text">VAR: Aspas são o que diferenciam número de texto.</span><span class="var-final">Segue o jogo!</span></div>
     </div>
 
-    <!-- SLIDE 3 - CONCATENAÇÃO COM + -->
-    <div class="slide" id="slide2">
+    <!-- SLIDE 3 - CONCATENAÇÃO -->
+    <div class="slide slide-concat" id="slide2">
+      <span class="deco" style="position:absolute; top:5%; left:5%; font-size:clamp(2rem,5vw,4rem); opacity:0.12; z-index:0;">🔗</span>
       <h2><span class="emoji">🔗</span> Concatenação com <code style="font-size:clamp(2rem, 5vw, 3.6rem); color:#2e7d32;">+</code></h2>
-      <p>O operador <code>+</code> junta dois ou mais textos em um só. É como colar palavras.</p>
-      <pre><span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"GO"</span> <span style="color:#f92672;">+</span> <span style="color:#e6db74;">"L"</span><span style="color:#f8f8f2;">)</span>  <span style="color:#75715e;"># GOL</span>
+      <p class="subtitulo">⚡ Juntar textos é como colar figurinhas da Copa!</p>
+      <p>O operador <code>+</code> junta dois ou mais textos em um só.</p>
+      <pre><span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"GOL"</span> <span style="color:#f92672;">+</span> <span style="color:#e6db74;">"!!!!!"</span><span style="color:#f8f8f2;">)</span>  <span style="color:#75715e;"># GOL!!!!!</span>
 <span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Brasil"</span> <span style="color:#f92672;">+</span> <span style="color:#e6db74;">" 2 x 1 "</span> <span style="color:#f92672;">+</span> <span style="color:#e6db74;">"Argentina"</span><span style="color:#f8f8f2;">)</span>  <span style="color:#75715e;"># Brasil 2 x 1 Argentina</span></pre>
-      <p>💡 <strong>Dica:</strong> O <code>+</code> só funciona com textos. Números precisam ser convertidos antes (assunto para outra aula).</p>
-      <p style="font-size:clamp(1rem, 2.4vw, 1.8rem);">É igual juntar as letras do nome do seu time!</p>
+      <div class="lance-box"><span class="lance-icon">👀</span><span class="lance-text"><strong>Olho no lance:</strong> O <code>+</code> não coloca espaço automático, adicione você mesmo!</span></div>
+      <div class="var-box"><span class="var-icon">📺</span><span class="var-text">VAR: Sem espaço, vira "Brasil2x1Argentina".</span><span class="var-final">Segue o jogo!</span></div>
     </div>
 
-    <!-- SLIDE 4 - LEN() + DESTAQUE SOBRE ESPAÇO -->
-    <div class="slide" id="slide3">
-      <h2><span class="emoji">🔢</span> Contagem com <code style="font-size:clamp(2rem, 5vw, 3.6rem); color:#2e7d32;">len()</code></h2>
-      <p>A função <code>len()</code> retorna o número de caracteres de uma string. Isso inclui letras, números, espaços e pontuação.</p>
-      <pre><span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Neymar"</span><span style="color:#f8f8f2;">))</span>   <span style="color:#75715e;"># 6</span>
-<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Cristiano Ronaldo"</span><span style="color:#f8f8f2;">))</span>  <span style="color:#75715e;"># 17 (espaço conta!)</span>
-<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Gol!"</span><span style="color:#f8f8f2;">))</span>       <span style="color:#75715e;"># 4 (inclui exclamação)</span></pre>
+<!-- SLIDE 4 - LEN() -->
+<div class="slide slide-len" id="slide3">
+  <span class="deco" style="position:absolute; top:10%; right:5%; font-size:clamp(2rem,5vw,4rem); opacity:0.12; z-index:0;">🔢</span>
+  <h2><span class="emoji">🔢</span> Contagem com <code style="font-size:clamp(2rem, 5vw, 3.6rem); color:#2e7d32;">len()</code></h2>
+  <p class="subtitulo">📏 Quantas letras tem o nome do craque?</p>
+  <p><code>len()</code> conta todos os caracteres: letras, números, espaços e pontuação.</p>
+  <pre><span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Neymar"</span><span style="color:#f8f8f2;">))</span>   <span style="color:#75715e;"># 6</span>
+<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"Cristiano Ronaldo"</span><span style="color:#f8f8f2;">))</span>  <span style="color:#75715e;"># 17 (espaço conta!)</span></pre>
 
-      <div class="destaque-box">
-        <p style="font-weight:700; margin-bottom:0.2vh;">⚠️ O espaço é um caractere!</p>
-        <p>O espaço em branco também é contado por <code>len()</code>. Exemplo: <code>"Ana Maria"</code> tem <strong>9</strong> caracteres, pois o espaço entre os nomes conta como 1.</p>
-        <pre style="margin-top:0.4vh; font-size:clamp(0.8rem, 1.8vw, 1.4rem);"><span style="color:#a6e22e;">nome</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"Ana Maria"</span>
+  <!-- OLHO NO LANCE com a explicação do espaço -->
+  <div class="lance-box" style="display:block; padding:0.8vh 1.2vw;">
+    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:clamp(0.9rem, 2vw, 1.5rem); font-weight:700; color:#b71c1c; margin-top:0.2vh;">
+      <span style="font-size:clamp(1.2rem, 2.5vw, 2rem);">👀</span>
+      <span><strong>Olho no lance: Espaço também é caractere para o <code>len()</code>!</strong></span>
+    </div>
+    <div style="display:flex; align-items:flex-start; gap:8px; flex-wrap:wrap; font-size:clamp(0.95rem, 2.2vw, 1.7rem); font-weight:500; color:#1a2e1a;">
+      <span style="font-size:clamp(1.2rem, 2.5vw, 2rem);">⚠️</span>
+      <span><strong>O espaço é um caractere!</strong> <code>"Ana Maria"</code> tem <strong>9</strong> caracteres (o espaço entre os nomes conta!).</span>
+    </div>
+    <pre style="margin-top:0.4vh; font-size:clamp(0.8rem, 1.6vw, 1.2rem);"><span style="color:#a6e22e;">nome</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"Ana Maria"</span>
 <span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">len</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">nome</span><span style="color:#f8f8f2;">))</span>  <span style="color:#75715e;"># 9</span></pre>
-        <p style="font-size:clamp(0.9rem, 2vw, 1.4rem); margin-top:0.2vh;">💡 <strong>Dica importante:</strong> <code>len()</code> conta todos os caracteres, inclusive espaços e pontuação. Útil para validar tamanho de senhas, nomes, etc.</p>
-      </div>
-    </div>
 
-    <!-- SLIDE 5 - .UPPER() E .LOWER() com TÍTULO CENTRALIZADO E PIADA GOL CONTRA -->
-    <div class="slide" id="slide4">
+  </div>
+
+  <!-- VAR -->
+  <div class="var-box">
+    <span class="var-icon">📺</span>
+    <span class="var-text">VAR: Você lembrou que espaço conta?</span>
+    <span class="var-final">Segue o jogo!</span>
+  </div>
+</div>
+
+    <!-- SLIDE 5 - UPPER / LOWER -->
+    <div class="slide slide-upperlower" id="slide4">
+      <span class="deco" style="position:absolute; top:5%; left:8%; font-size:clamp(2rem,5vw,4rem); opacity:0.12; z-index:0;">🔊</span>
       <h2 class="titulo-centralizado">
         <span class="emoji">🔊</span> Grito <code style="font-size:clamp(1.8rem, 4.5vw, 3.2rem); color:#2e7d32;">.upper()</code> vs Sussurro <code style="font-size:clamp(1.8rem, 4.5vw, 3.2rem); color:#2e7d32;">.lower()</code>
       </h2>
+      <p class="subtitulo" style="text-align:center;">🏆 Gritar gol é <code>.upper()</code>! Gol contra é <code>.lower()</code>… 😅</p>
       <div class="flex-row">
         <div>
           <p><strong>.upper()</strong> → tudo MAIÚSCULO</p>
           <pre><span style="color:#a6e22e;">jogador</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"ronaldinho"</span>
 <span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">jogador</span><span style="color:#f8f8f2;">.</span><span style="color:#a6e22e;">upper</span><span style="color:#f8f8f2;">())</span>  <span style="color:#75715e;"># RONALDINHO</span>
 <span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">"gol"</span><span style="color:#f8f8f2;">.</span><span style="color:#a6e22e;">upper</span><span style="color:#f8f8f2;">()</span> <span style="color:#f92672;">+</span> <span style="color:#e6db74;">"!!!!"</span><span style="color:#f8f8f2;">)</span>  <span style="color:#75715e;"># GOL!!!!</span></pre>
-          <p style="font-size:clamp(0.9rem, 2.2vw, 1.6rem);">Gritar gol tem que ser em maiúsculo! 🗣️</p>
+          <div class="lance-box"><span class="lance-icon">👀</span><span class="lance-text"><strong>Olho no lance:</strong> Grite com <code>.upper()</code>!</span></div>
         </div>
         <div>
           <p><strong>.lower()</strong> → tudo minúsculo</p>
-          <pre><span style="color:#a6e22e;">grito</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"GOL...Contra"</span>
-<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">grito</span><span style="color:#f8f8f2;">.</span><span style="color:#a6e22e;">lower</span><span style="color:#f8f8f2;">())</span>  <span style="color:#75715e;"># gol...contra </span></pre>
-          <p style="font-size:clamp(0.9rem, 2.2vw, 1.6rem);">Quando é gol contra, a gente fala baixinho… 😅</p>
+          <pre><span style="color:#a6e22e;">grito</span> <span style="color:#f92672;">=</span> <span style="color:#e6db74;">"GOL"</span>
+<span></span>
+<span style="color:#a6e22e;">print</span><span style="color:#f8f8f2;">(</span><span style="color:#a6e22e;">grito</span><span style="color:#f8f8f2;">.</span><span style="color:#a6e22e;">lower</span><span style="color:#f8f8f2;">())</span>  <span style="color:#75715e;"># gol</span></pre>
+          <div class="lance-box"><span class="lance-icon"></span><span class="lance-text">👀<strong>Olho no lance:</strong> Gol contra? Fala baixo com <code>.lower()</code>! 😅</span></div>
         </div>
       </div>
-      <p style="font-size:clamp(0.9rem, 2.2vw, 1.6rem); margin-top:0.5vh; text-align:center;">💡 <strong>Ambos</strong> não alteram a variável original, geram uma nova string.</p>
+      <div class="var-box"><span class="var-icon">📺</span><span class="var-text">VAR: <code>.upper()</code> e <code>.lower()</code> não modificam a original, geram uma nova string.</span><span class="var-final">Segue o jogo!</span></div>
     </div>
 
-    <!-- SLIDE 6 - REVISÃO RÁPIDA -->
-    <div class="slide bg-dark" id="slide5">
+    <!-- SLIDE 6 - REVISÃO -->
+    <div class="slide slide-revisao" id="slide5">
+      <span class="deco" style="position:absolute; top:5%; left:5%; font-size:clamp(2rem,5vw,4rem); opacity:0.12; z-index:0;">🧠</span>
       <h2 style="color:#ffd700;">🤔 Você lembra?</h2>
+      <p class="subtitulo" style="color:#aac;">🏆 Revisão rápida antes do desafio!</p>
       <ul style="list-style:none; padding:0; font-size:clamp(1.4rem, 3.4vw, 2.8rem);">
         <li style="display:flex; align-items:center; gap:1.5vw; margin-bottom:1.2vh;">
-          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">➕</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">+</code> → junta textos (concatenação)
+          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">➕</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">+</code> → junta textos
         </li>
         <li style="display:flex; align-items:center; gap:1.5vw; margin-bottom:1.2vh;">
-          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🔢</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">len()</code> → conta todos os caracteres (espaços e pontuação inclusos)
+          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🔢</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">len()</code> → conta caracteres (espaços contam!)
         </li>
         <li style="display:flex; align-items:center; gap:1.5vw; margin-bottom:1.2vh;">
-          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🔊</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">.upper()</code> → transforma em MAIÚSCULAS
+          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🔊</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">.upper()</code> → MAIÚSCULAS
         </li>
         <li style="display:flex; align-items:center; gap:1.5vw; margin-bottom:1.2vh;">
-          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🤫</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">.lower()</code> → transforma em minúsculas
+          <span style="font-size:clamp(2rem, 4.5vw, 3.6rem);">🤫</span> <code style="font-size:clamp(1.4rem, 3.4vw, 2.8rem); color:#ffd700;">.lower()</code> → minúsculas
         </li>
       </ul>
-      <p style="color:#aac; font-size:clamp(1rem, 2.4vw, 1.8rem); margin-top:0.5vh; text-align:center;">Prontos para o desafio? 💪</p>
+      <div class="var-box"><span class="var-icon">📺</span><span class="var-text">VAR: Você está pronto para o segundo tempo?</span><span class="var-final">Segue o jogo!</span></div>
     </div>
 
-    <!-- SLIDE 7 - DESAFIO DO NARRADOR -->
-    <div class="slide" id="slide6" style="padding:2.5vh 5vw; justify-content:center;">
-      <h2 style="font-size:clamp(2.2rem, 5vw, 3.8rem); margin-bottom:1.2vh; justify-content:center; text-align:center;">
+    <!-- SLIDE 7 - DESAFIO -->
+    <div class="slide slide-desafio" id="slide6" style="padding:2.5vh 5vw; justify-content:center;">
+      <span class="deco" style="position:absolute; top:5%; left:5%; font-size:clamp(2rem,5vw,4rem); opacity:0.12; z-index:0;">🎙️</span>
+      <h2 style="font-size:clamp(2.2rem, 5vw, 3.8rem); margin-bottom:0.8vh; justify-content:center; text-align:center; color:#b71c1c;">
         <span class="emoji">🎙️</span> Desafio do Narrador!
       </h2>
-      <p style="font-size:clamp(1.2rem, 3vw, 2.2rem); font-weight:700; margin-bottom:1vh; text-align:center;">
-        Você é o narrador da Copa! ⚽
-      </p>
-      <div class="challenge-box" style="font-size:clamp(1rem, 2.6vw, 1.8rem);">
-        <p style="margin-bottom:0.6vh;"><strong>📝 O que fazer:</strong></p>
-        <ol style="padding-left:2vw; margin-bottom:0.6vh;">
+      <p class="subtitulo" style="text-align:center; color:#5d4037;">⚡ Você é o narrador da Copa! Grite esse gol!</p>
+      <div class="challenge-box">
+        <p style="margin-bottom:0.4vh;"><strong>📝 O que fazer:</strong></p>
+        <ol style="padding-left:2vw; margin-bottom:0.4vh;">
           <li>Escolha um <strong>nome de jogador</strong> e guarde em uma variável.</li>
           <li>Crie uma <strong>mensagem de gol</strong> usando <strong>concatenação</strong> (<code>+</code>) e <code>.upper()</code> no nome.<br>
-          O resultado deve ser como: <code>"GOLLLLLLL DO NOME DO JOGADOR!!!!!"</code> (tudo em maiúsculas).</li>
+          Resultado: <code>"GOLLLLLLL DO NOME DO JOGADOR!!!!!"</code> (tudo maiúsculo).</li>
           <li>Mostre uma <strong>curiosidade</strong>: quantas letras tem o nome, usando <code>len()</code>.</li>
         </ol>
       </div>
-      <div class="result-box" style="font-size:clamp(1rem, 2.6vw, 1.8rem);">
-        <p style="font-weight:700; margin-bottom:0.4vh;">🎯 Exemplo com Vini Jr.:</p>
-        <pre style="background:#e8f5e9; border-left-color:#0a6b3a; color:#2e7d32; font-size:clamp(0.9rem, 2vw, 1.6rem); padding:1.2vh 1.5vw;">
+      <div class="result-box">
+        <p style="font-weight:700; margin-bottom:0.2vh;">🎯 Exemplo com Vini Jr.:</p>
+        <pre style="background:rgba(232,245,233,0.7); backdrop-filter:blur(4px); border-left-color:#0a6b3a; color:#2e7d32; font-size:clamp(0.9rem, 2vw, 1.6rem); padding:1vh 1.5vw;">
 GOLLLLLLL DO VINI JR.!!!!!
 Curiosidade: o nome tem 8 letras</pre>
       </div>
-      <p style="font-size:clamp(1rem, 2.6vw, 1.8rem); font-weight:700; margin-top:0.8vh; color:#d63384; text-align:center;">
-        ⚡ Agora escreva seu código, rode e veja o resultado!
+      <div class="lance-box"><span class="lance-icon">👀</span><span class="lance-text"><strong>Olho no lance:</strong> Use <code>+</code> e <code>.upper()</code>! Não esqueça os parênteses!</span></div>
+      <p style="font-size:clamp(1rem, 2.6vw, 1.8rem); font-weight:700; margin-top:0.6vh; color:#b71c1c; text-align:center;">
+        ⚡ Agora escreva seu código e veja o resultado!
       </p>
+      <div class="var-box"><span class="var-icon">📺</span><span class="var-text">VAR: Mostre seu código para o juiz (professor)!</span><span class="var-final">Segue o jogo!</span></div>
     </div>
 
     <!-- SLIDE 8 - RESUMO -->
-    <div class="slide bg-blue" id="slide7">
+    <div class="slide slide-resumo" id="slide7">
+      <span class="deco" style="position:absolute; top:5%; left:5%; font-size:clamp(2rem,5vw,4rem); opacity:0.12; z-index:0;">🏆</span>
       <h2 style="color:#ffd700;">🏆 RESUMO DA AULA</h2>
-      <p style="font-size:clamp(1.4rem, 3.6vw, 2.8rem); font-weight:700; text-align:center;">Parabéns! Vocês são <span style="color:#ffd700;">craques</span> em strings!</p>
-      <ul style="list-style:none; padding:0; font-size:clamp(1.2rem, 3vw, 2.4rem); margin-top:1.5vh;">
-        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:1vh;">
-          <span style="font-size:clamp(1.8rem, 4vw, 3.2rem);">🧵</span> <strong>String</strong> = texto entre aspas (simples ou duplas)
+      <p class="subtitulo" style="color:#aac;">🎉 Parabéns! Vocês são craques em strings!</p>
+      <ul style="list-style:none; padding:0; font-size:clamp(1.2rem, 3vw, 2.4rem); margin-top:1vh;">
+        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:0.8vh;">
+          <span style="font-size:clamp(1.8rem, 4vw, 3.2rem);">🧵</span> <strong>String</strong> = texto entre aspas
         </li>
-        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:1vh;">
+        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:0.8vh;">
           <span style="font-size:clamp(1.8rem, 4vw, 3.2rem);">➕</span> <strong>+</strong> = junta textos (concatenação)
         </li>
-        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:1vh;">
-          <span style="font-size:clamp(1.8rem, 4vw, 3.2rem);">🔢</span> <strong>len()</strong> = conta caracteres (espaços e pontuação contam!)
+        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:0.8vh;">
+          <span style="font-size:clamp(1.8rem, 4vw, 3.2rem);">🔢</span> <strong>len()</strong> = conta caracteres (espaços contam!)
         </li>
-        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:1vh;">
+        <li style="display:flex; align-items:center; gap:1.2vw; margin-bottom:0.8vh;">
           <span style="font-size:clamp(1.8rem, 4vw, 3.2rem);">🔊</span> <strong>.upper() / .lower()</strong> = maiúsculas / minúsculas
         </li>
       </ul>
-      <p style="font-size:clamp(1.2rem, 3vw, 2.2rem); font-weight:700; margin-top:1.2vh; text-align:center;">Bons estudos e boa sorte! ⚽🚀</p>
+      <div class="var-box" style="background: rgba(255,215,0,0.15); border: 2px solid #ffd700; box-shadow: none;">
+        <span class="var-icon" style="color:#ffd700;">📺</span>
+        <span class="var-text" style="color:#ffd700;">VAR: PARABÉNS! Você passou no teste! É TETRAAAA!</span>
+        <span class="var-final" style="color:#ffd700;">🏆🏆🏆🏆</span>
+      </div>
+      <p style="font-size:clamp(1.2rem, 3vw, 2.2rem); font-weight:700; margin-top:1vh; text-align:center;">Bons estudos e boa sorte! ⚽🚀</p>
     </div>
 
   </div><!-- fim slides-wrapper -->
@@ -469,15 +438,12 @@ Curiosidade: o nome tem 8 letras</pre>
     const slides = document.querySelectorAll('.slide');
     const total = slides.length;
     let current = 0;
-
     document.getElementById('totalPages').textContent = total;
 
     function goTo(index) {
       if (index < 0) index = total - 1;
       if (index >= total) index = 0;
-      slides.forEach((s, i) => {
-        s.classList.toggle('active', i === index);
-      });
+      slides.forEach((s, i) => { s.classList.toggle('active', i === index); });
       current = index;
       document.getElementById('currentPage').textContent = current + 1;
     }
@@ -486,26 +452,16 @@ Curiosidade: o nome tem 8 letras</pre>
     document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') {
-        e.preventDefault();
-        goTo(current + 1);
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        goTo(current - 1);
-      }
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
     });
 
     let touchStartX = 0;
     const container = document.querySelector('.container');
-    container.addEventListener('touchstart', e => {
-      touchStartX = e.changedTouches[0].screenX;
-    });
+    container.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
     container.addEventListener('touchend', e => {
       const diff = touchStartX - e.changedTouches[0].screenX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) goTo(current + 1);
-        else goTo(current - 1);
-      }
+      if (Math.abs(diff) > 50) { diff > 0 ? goTo(current + 1) : goTo(current - 1); }
     });
 
     goTo(0);
